@@ -7,14 +7,14 @@ import androidx.room.PrimaryKey
 import java.sql.Date
 
 @Entity(tableName = "expenses",
-    foreignKeys = [
-        ForeignKey(
-            entity = User::class,
-            parentColumns = ["id"],
-            childColumns = ["user_id"],
-            onDelete = ForeignKey.CASCADE
-        )
-    ])
+        foreignKeys = [
+            ForeignKey(
+                entity = User::class,
+                parentColumns = ["id"],
+                childColumns = ["user_id"],
+                onDelete = ForeignKey.CASCADE
+            )
+        ])
 data class Expense(
     @PrimaryKey(autoGenerate = true) var id: Long = 0L,
     @ColumnInfo(name = "user_id") var user_id: Long,
