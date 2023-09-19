@@ -18,4 +18,6 @@ interface ExpenseDao {
     suspend fun delete(expense: Expense)
     @Query("SELECT * FROM expenses WHERE user_id = :user_id AND expense_date = :expense_date")
     suspend fun getUsersExpensesByDate(user_id: Int, expense_date: Date): List<Expense>
+    @Query("SELECT SUM(price) FROM expenses WHERE expense_date = :expense_date AND user_id = :user_id")
+    suspend fun getUsersDailySum(user_id: Int, expense_date: Date) : Int
 }
