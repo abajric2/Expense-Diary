@@ -6,6 +6,7 @@ import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 import java.sql.Date
 
+
 @Entity(tableName = "expenses",
         foreignKeys = [
             ForeignKey(
