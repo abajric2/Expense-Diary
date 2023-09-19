@@ -14,4 +14,7 @@ interface UserDao {
     suspend fun insertAll(vararg users: User)
     @Delete
     suspend fun delete(user: User)
+    @Query("SELECT * FROM users WHERE username = :username")
+    suspend fun searchByUsername(username: String): List<User>
+
 }
