@@ -13,7 +13,7 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.login)
-        testing(this)
+       // testing(this)
     }
     private fun testing(context: Context) {
         val scope = CoroutineScope(Job() + Dispatchers.Main)
