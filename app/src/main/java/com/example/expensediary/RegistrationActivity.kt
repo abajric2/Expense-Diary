@@ -73,5 +73,11 @@ class RegistrationActivity : AppCompatActivity() {
 
             return@setOnClickListener
         }
+        findViewById<TextView>(R.id.logIn).setOnClickListener {
+            val intent = Intent(this, LoginActivity::class.java).apply {
+            }
+            startActivity(intent)
+            return@setOnClickListener
+        }
     }
 }
