@@ -25,5 +25,12 @@ class UserRepository {
             if(users.isNotEmpty()) usernameExists = true
             usernameExists
         }
+        suspend fun logIn(username: String, password: String, context: Context): User? = withContext(Dispatchers.IO) {
+            var db = AppDatabase.getInstance(context)
+            var users: List<User> = db!!.userDao().searchByUsernameAndPassword(username, password)
+            var user: User? = null
+            if(users.isNotEmpty() && users.size == 1) user = users.get(0)
+            user
+        }
     }
 }
