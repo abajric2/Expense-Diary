@@ -53,7 +53,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
                 android:layout_gravity="center"
-                android:text="Welcome" />
+                android:text="" />
 
             <TextView
                 android:id="@+id/dateInfo"
@@ -62,7 +62,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
-                android:text="The costs shown refer to today's date. If you want to show the costs for another date, please select it." />
+                android:text="Select the day for which you want to display your expenses!" />
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">

@@ -16,11 +16,13 @@ class HomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
+        val user: User? = intent.getParcelableExtra("user")
+        val welcomeMessage: String = "Welcome " + (user?.firstName ?: "")
+        findViewById<TextView>(R.id.welcome).text = welcomeMessage
         selectedDate = findViewById(R.id.selectedDate)
         datePicker = findViewById(R.id.datePicker)
         updateSelectedDate(Calendar.getInstance())
         val calendar = Calendar.getInstance()
-        val user: User? = intent.getParcelableExtra("user")
         val picker = DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
             calendar.set(Calendar.YEAR, year)
             calendar.set(Calendar.MONTH, month)
