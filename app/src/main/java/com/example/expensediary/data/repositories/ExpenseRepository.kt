@@ -10,7 +10,7 @@ import java.sql.Date
 
 class ExpenseRepository {
     companion object {
-        suspend fun getUsersExpensesByDate(user_id: Int, expense_date: Date, context: Context): List<Expense> = withContext(Dispatchers.IO) {
+        suspend fun getUsersExpensesByDate(user_id: Long, expense_date: String, context: Context): List<Expense> = withContext(Dispatchers.IO) {
             var db = AppDatabase.getInstance(context)
             val expenses: List<Expense> = db!!.expenseDao().getUsersExpensesByDate(user_id, expense_date)
             expenses

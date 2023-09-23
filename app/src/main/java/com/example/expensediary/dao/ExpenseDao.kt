@@ -21,19 +21,19 @@ interface ExpenseDao {
         WHERE user_id = :user_id 
         AND expense_date = :expense_date
         """)
-    suspend fun getUsersExpensesByDate(user_id: Int, expense_date: Date): List<Expense>
+    suspend fun getUsersExpensesByDate(user_id: Long, expense_date: String): List<Expense>
     @Query("""
         SELECT SUM(price) 
         FROM expenses 
         WHERE expense_date = :expense_date 
         AND user_id = :user_id
         """)
-    suspend fun getUsersDailySum(user_id: Int, expense_date: Date) : Int
+    suspend fun getUsersDailySum(user_id: Long, expense_date: Date) : Int
     @Query("""
         SELECT SUM(price) 
         FROM expenses 
         WHERE strftime('%Y-%m', expense_date) = strftime('%Y-%m', :expense_date) 
         AND user_id = :user_id
         """)
-    suspend fun getUsersMonthlySum(user_id: Int, expense_date: Date) : Int
+    suspend fun getUsersMonthlySum(user_id: Long, expense_date: Date) : Int
 }
