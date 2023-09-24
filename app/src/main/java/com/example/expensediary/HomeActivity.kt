@@ -65,6 +65,8 @@ class HomeActivity : AppCompatActivity() {
             scope.launch {
                 expenses = ExpenseRepository.getUsersExpensesByDate(user!!.id, selectedDate.text.toString(), context)
                 expenseListAdapter.updateExpenses(expenses)
+                setDailyLimitInfo()
+                setMonthlyLimitInfo()
             }
         }
         datePicker.setOnClickListener {
@@ -72,6 +74,7 @@ class HomeActivity : AppCompatActivity() {
                 calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show()
         }
         setMonthlyLimitInfo()
+        setDailyLimitInfo()
     }
     private fun setMonthlyLimitInfo() {
         val context: Context = this
@@ -94,6 +97,29 @@ class HomeActivity : AppCompatActivity() {
                 info += "\n\nYou haven't spent money so far this month."
             }
             monthlyLimitInfo.text = info
+        }
+    }
+    private fun setDailyLimitInfo() {
+        val context: Context = this
+        val scope = CoroutineScope(Job() + Dispatchers.Main)
+        scope.launch {
+            var info: String = "Your daily limit is " + user!!.dailyLimit + " " + user!!.currency + "."
+            if(ExpenseRepository.expensesExist(user!!.id, context)) {
+                var sum = ExpenseRepository.getUsersDailySum(
+                    user!!.id,
+                    selectedDate.text.toString(),
+                    context
+                )
+                info += "\n\nUp to this moment, the sum of all expenses during the selected day is " + sum + " " + user!!.currency + "."
+                if (sum > user!!.dailyLimit) {
+                    info += "\n\nBe careful with your expenses, you have exceeded your daily limit! You have spent " + (sum - user!!.dailyLimit) + " " + user!!.currency + " more than you should have."
+                } else {
+                    info += "\n\nYou have " + (user!!.dailyLimit - sum) + " " + user!!.currency + " left to spend during the selected day if you do not want to exceed the set daily limit."
+                }
+            } else {
+                info += "\n\nYou haven't spent money so far this day."
+            }
+            dailyLimitInfo.text = info
         }
     }
     private fun updateSelectedDate(calendar: Calendar) {
