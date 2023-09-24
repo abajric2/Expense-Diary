@@ -98,21 +98,22 @@ class HomeActivity : AppCompatActivity() {
         val context: Context = this
         val scope = CoroutineScope(Job() + Dispatchers.Main)
         scope.launch {
-            var info: String = "Your monthly limit is " + user!!.monthlyLimit + " " + user!!.currency + "."
+            var info: String = "MONTHLY LIMIT: " + user!!.monthlyLimit + " " + user!!.currency
             if(ExpenseRepository.expensesExist(user!!.id, context)) {
                 var sum = ExpenseRepository.getUsersMonthlySum(
                     user!!.id,
                     selectedDate.text.toString(),
                     context
                 )
-                info += "\n\nUp to this moment, the sum of all expenses during the selected month is " + sum + " " + user!!.currency + "."
+                info += "\n\nMONTHLY EXPENSE: " + sum + " " + user!!.currency
                 if (sum > user!!.monthlyLimit) {
-                    info += "\n\nBe careful with your expenses, you have exceeded your monthly limit! You have spent " + (sum - user!!.monthlyLimit) + " " + user!!.currency + " more than you should have."
+                    info += "\n\nLIMIT EXCEEDED!\nAMOUNT OF OVERFLOW: " + (sum - user!!.monthlyLimit) + " " + user!!.currency
                 } else {
-                    info += "\n\nYou have " + (user!!.monthlyLimit - sum) + " " + user!!.currency + " left to spend during the selected month if you do not want to exceed the set monthly limit."
+                    info += "\n\nREMAINING BEFORE OVERDRAFT: " + (user!!.monthlyLimit - sum) + " " + user!!.currency
                 }
             } else {
-                info += "\n\nYou haven't spent money so far this month."
+                info += "\n\nMONTHLY EXPENSE: " + 0 + " " + user!!.currency
+                info += "\n\nREMAINING BEFORE OVERDRAFT: " + (user!!.monthlyLimit) + " " + user!!.currency
             }
             monthlyLimitInfo.text = info
         }
@@ -121,21 +122,23 @@ class HomeActivity : AppCompatActivity() {
         val context: Context = this
         val scope = CoroutineScope(Job() + Dispatchers.Main)
         scope.launch {
-            var info: String = "Your daily limit is " + user!!.dailyLimit + " " + user!!.currency + "."
+            var info: String = "DAILY LIMIT: " + user!!.dailyLimit + " " + user!!.currency
             if(ExpenseRepository.expensesExist(user!!.id, context)) {
                 var sum = ExpenseRepository.getUsersDailySum(
                     user!!.id,
                     selectedDate.text.toString(),
                     context
                 )
-                info += "\n\nUp to this moment, the sum of all expenses during the selected day is " + sum + " " + user!!.currency + "."
+                info += "\n\nDAILY EXPENSE: " + sum + " " + user!!.currency
                 if (sum > user!!.dailyLimit) {
-                    info += "\n\nBe careful with your expenses, you have exceeded your daily limit! You have spent " + (sum - user!!.dailyLimit) + " " + user!!.currency + " more than you should have."
+                    info += "\n\nLIMIT EXCEEDED!\n" +
+                            "AMOUNT OF OVERFLOW:  " + (sum - user!!.dailyLimit) + " " + user!!.currency
                 } else {
-                    info += "\n\nYou have " + (user!!.dailyLimit - sum) + " " + user!!.currency + " left to spend during the selected day if you do not want to exceed the set daily limit."
+                    info += "\n\nREMAINING BEFORE OVERDRAFT: " + (user!!.dailyLimit - sum) + " " + user!!.currency
                 }
             } else {
-                info += "\n\nYou haven't spent money so far this day."
+                info += "\n\nDAILY EXPENSE: " + 0 + " " + user!!.currency
+                info += "\n\nREMAINING BEFORE OVERDRAFT: " + (user!!.dailyLimit) + " " + user!!.currency
             }
             dailyLimitInfo.text = info
         }
