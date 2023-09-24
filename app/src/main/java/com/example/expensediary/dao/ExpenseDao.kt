@@ -12,6 +12,8 @@ import java.sql.Date
 interface ExpenseDao {
     @Query("SELECT * FROM expenses")
     suspend fun getAll(): List<Expense>
+    @Query("SELECT * FROM expenses WHERE user_id = :user_id")
+    suspend fun getByUsersId(user_id: Long): List<Expense>
     @Insert
     suspend fun insertAll(vararg expenses: Expense)
     @Delete
@@ -28,12 +30,12 @@ interface ExpenseDao {
         WHERE expense_date = :expense_date 
         AND user_id = :user_id
         """)
-    suspend fun getUsersDailySum(user_id: Long, expense_date: Date) : Int
+    suspend fun getUsersDailySum(user_id: Long, expense_date: String) : Int
     @Query("""
         SELECT SUM(price) 
         FROM expenses 
         WHERE strftime('%Y-%m', expense_date) = strftime('%Y-%m', :expense_date) 
         AND user_id = :user_id
         """)
-    suspend fun getUsersMonthlySum(user_id: Long, expense_date: Date) : Int
+    suspend fun getUsersMonthlySum(user_id: Long, expense_date: String) : Int
 }
