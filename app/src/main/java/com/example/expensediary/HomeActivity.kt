@@ -36,11 +36,6 @@ class HomeActivity : AppCompatActivity() {
         datePicker = findViewById(R.id.datePicker)
         expenses = listOf()
         updateSelectedDate(Calendar.getInstance())
-        val context: Context = this
-        val scope = CoroutineScope(Job() + Dispatchers.Main)
-        scope.launch {
-            expenses = ExpenseRepository.getUsersExpensesByDate(user!!.id, selectedDate.text.toString(), context)
-        }
         expenseList = findViewById(R.id.expensesList)
         expenseList.layoutManager = LinearLayoutManager(
             this,
@@ -49,7 +44,12 @@ class HomeActivity : AppCompatActivity() {
         )
         expenseListAdapter = ExpenseListAdapter(listOf())
         expenseList.adapter = expenseListAdapter
-        expenseListAdapter.updateExpenses(expenses)
+        val context: Context = this
+        val scope = CoroutineScope(Job() + Dispatchers.Main)
+        scope.launch {
+            expenses = ExpenseRepository.getUsersExpensesByDate(user!!.id, selectedDate.text.toString(), context)
+            expenseListAdapter.updateExpenses(expenses)
+        }
         val calendar = Calendar.getInstance()
         val picker = DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
             calendar.set(Calendar.YEAR, year)
@@ -59,8 +59,8 @@ class HomeActivity : AppCompatActivity() {
             val scope = CoroutineScope(Job() + Dispatchers.Main)
             scope.launch {
                 expenses = ExpenseRepository.getUsersExpensesByDate(user!!.id, selectedDate.text.toString(), context)
+                expenseListAdapter.updateExpenses(expenses)
             }
-            expenseListAdapter.updateExpenses(expenses)
         }
         datePicker.setOnClickListener {
             DatePickerDialog(this, picker, calendar.get(Calendar.YEAR),
