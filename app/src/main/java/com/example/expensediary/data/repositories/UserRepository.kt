@@ -32,5 +32,11 @@ class UserRepository {
             if(users.isNotEmpty() && users.size == 1) user = users.get(0)
             user
         }
+        suspend fun getById(id: Long, context: Context): User? = withContext(Dispatchers.IO) {
+            var db = AppDatabase.getInstance(context)
+            val users: List<User> = db!!.userDao().getById(id)
+            if(users.isNotEmpty() && users.size == 1) users.get(0)
+            else null
+        }
     }
 }

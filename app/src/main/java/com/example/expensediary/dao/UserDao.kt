@@ -12,6 +12,8 @@ interface UserDao {
     suspend fun getAll(): List<User>
     @Insert
     suspend fun insertAll(vararg users: User)
+    @Query("SELECT * FROM users WHERE id = :id")
+    suspend fun getById(id: Long): List<User>
     @Delete
     suspend fun delete(user: User)
     @Query("SELECT * FROM users WHERE username = :username")
