@@ -5,6 +5,7 @@ import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,6 +18,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import java.sql.Date
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -28,6 +30,9 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var expenses: List<Expense>
     private lateinit var monthlyLimitInfo: TextView
     private lateinit var dailyLimitInfo: TextView
+    private lateinit var addExpense: ImageButton
+    private lateinit var item: EditText
+    private lateinit var price: EditText
     private var user: User? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,7 +43,10 @@ class HomeActivity : AppCompatActivity() {
         monthlyLimitInfo = findViewById(R.id.monthlyLimitInfo)
         dailyLimitInfo = findViewById(R.id.dailyLimitInfo)
         selectedDate = findViewById(R.id.selectedDate)
+        addExpense = findViewById(R.id.addExpense)
         datePicker = findViewById(R.id.datePicker)
+        item = findViewById(R.id.item)
+        price = findViewById(R.id.price)
         expenses = listOf()
         updateSelectedDate(Calendar.getInstance())
         expenseList = findViewById(R.id.expensesList)
@@ -72,6 +80,16 @@ class HomeActivity : AppCompatActivity() {
         datePicker.setOnClickListener {
             DatePickerDialog(this, picker, calendar.get(Calendar.YEAR),
                 calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show()
+        }
+        addExpense.setOnClickListener {
+            val scope = CoroutineScope(Job() + Dispatchers.Main)
+            scope.launch {
+                ExpenseRepository.insert(user!!.id, item.text.toString(), price.text.toString().toInt(), selectedDate.text.toString(), context)
+                expenses = ExpenseRepository.getUsersExpensesByDate(user!!.id, selectedDate.text.toString(), context)
+                expenseListAdapter.updateExpenses(expenses)
+                setDailyLimitInfo()
+                setMonthlyLimitInfo()
+            }
         }
         setMonthlyLimitInfo()
         setDailyLimitInfo()
