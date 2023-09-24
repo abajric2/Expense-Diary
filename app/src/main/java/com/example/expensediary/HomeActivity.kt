@@ -55,7 +55,7 @@ class HomeActivity : AppCompatActivity() {
             LinearLayoutManager.VERTICAL,
             false
         )
-        expenseListAdapter = ExpenseListAdapter(listOf())
+        expenseListAdapter = ExpenseListAdapter(listOf(), user)
         expenseList.adapter = expenseListAdapter
         val context: Context = this
         val scope = CoroutineScope(Job() + Dispatchers.Main)

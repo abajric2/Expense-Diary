@@ -6,9 +6,11 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.expensediary.data.Expense
+import com.example.expensediary.data.User
 
 class ExpenseListAdapter(
-private var expenses: List<Expense>
+private var expenses: List<Expense>,
+private var user: User?
 ) : RecyclerView.Adapter<ExpenseListAdapter.ExpenseViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ExpenseViewHolder
     {
@@ -20,7 +22,8 @@ private var expenses: List<Expense>
     override fun getItemCount(): Int = expenses.size
     override fun onBindViewHolder(holder: ExpenseViewHolder, position: Int) {
         holder.item.text = expenses[position].item
-        holder.price.text = expenses[position].price.toString()
+        val price: String = expenses[position].price.toString() + " " + (user?.currency ?: "")
+        holder.price.text = price
     }
     fun updateExpenses(expenses: List<Expense>) {
         this.expenses = expenses
