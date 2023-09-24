@@ -30,5 +30,9 @@ class ExpenseRepository {
             val expenses: List<Expense> = db!!.expenseDao().getByUsersId(user_id)
             expenses.isNotEmpty()
         }
+        suspend fun insert(user_id: Long, item: String, price: Int, expense_date: String, context: Context) = withContext(Dispatchers.IO) {
+            var db = AppDatabase.getInstance(context)
+            db!!.expenseDao().insert(user_id, item, price, expense_date)
+        }
     }
 }

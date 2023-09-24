@@ -16,6 +16,8 @@ interface ExpenseDao {
     suspend fun getByUsersId(user_id: Long): List<Expense>
     @Insert
     suspend fun insertAll(vararg expenses: Expense)
+    @Query("INSERT INTO expenses (user_id, item, price, expense_date) VALUES (:user_id, :item, :price, :expense_date)")
+    suspend fun insert(user_id: Long, item: String, price: Int, expense_date: String)
     @Delete
     suspend fun delete(expense: Expense)
     @Query("""
