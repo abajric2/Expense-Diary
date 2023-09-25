@@ -32,6 +32,8 @@ class HomeActivity : AppCompatActivity(), ExpenseListAdapter.ButtonClickListener
     private lateinit var expenses: List<Expense>
     private lateinit var monthlyLimitInfo: TextView
     private lateinit var dailyLimitInfo: TextView
+    private lateinit var monthlyLimitExceeded: TextView
+    private lateinit var dailyLimitExceeded: TextView
     private lateinit var addExpense: ImageButton
     private lateinit var item: EditText
     private lateinit var price: EditText
@@ -48,6 +50,8 @@ class HomeActivity : AppCompatActivity(), ExpenseListAdapter.ButtonClickListener
         findViewById<TextView>(R.id.welcome).text = welcomeMessage
         monthlyLimitInfo = findViewById(R.id.monthlyLimitInfo)
         dailyLimitInfo = findViewById(R.id.dailyLimitInfo)
+        monthlyLimitExceeded = findViewById(R.id.monthlyLimitExceeded)
+        dailyLimitExceeded = findViewById(R.id.dailyLimitExceeded)
         selectedDate = findViewById(R.id.selectedDate)
         addExpense = findViewById(R.id.addExpense)
         datePicker = findViewById(R.id.datePicker)
@@ -160,8 +164,10 @@ class HomeActivity : AppCompatActivity(), ExpenseListAdapter.ButtonClickListener
                 )
                 info += "\n\nMONTHLY EXPENSE: " + sum + " " + user!!.currency
                 if (sum > user!!.monthlyLimit) {
-                    info += "\n\nLIMIT EXCEEDED!\nAMOUNT OF OVERFLOW: " + (sum - user!!.monthlyLimit) + " " + user!!.currency
+                    monthlyLimitExceeded.visibility = View.VISIBLE
+                    info += "\n\nAMOUNT OF OVERFLOW: " + (sum - user!!.monthlyLimit) + " " + user!!.currency
                 } else {
+                    monthlyLimitExceeded.visibility = View.GONE
                     info += "\n\nREMAINING BEFORE OVERDRAFT: " + (user!!.monthlyLimit - sum) + " " + user!!.currency
                 }
             } else {
@@ -184,9 +190,10 @@ class HomeActivity : AppCompatActivity(), ExpenseListAdapter.ButtonClickListener
                 )
                 info += "\n\nDAILY EXPENSE: " + sum + " " + user!!.currency
                 if (sum > user!!.dailyLimit) {
-                    info += "\n\nLIMIT EXCEEDED!\n" +
-                            "AMOUNT OF OVERFLOW:  " + (sum - user!!.dailyLimit) + " " + user!!.currency
+                    dailyLimitExceeded.visibility = View.VISIBLE
+                    info += "\n\nAMOUNT OF OVERFLOW:  " + (sum - user!!.dailyLimit) + " " + user!!.currency
                 } else {
+                    dailyLimitExceeded.visibility = View.GONE
                     info += "\n\nREMAINING BEFORE OVERDRAFT: " + (user!!.dailyLimit - sum) + " " + user!!.currency
                 }
             } else {

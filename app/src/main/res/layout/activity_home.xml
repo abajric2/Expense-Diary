@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFD0C2"
     tools:context=".HomeActivity">
 
     <ScrollView
@@ -27,7 +28,8 @@
                     android:layout_marginTop="5dp"
                     android:layout_marginEnd="20dp"
                     android:layout_marginBottom="5dp"
-                    android:text="Profile"
+                    android:text="@string/profile"
+                    android:textColor="#3F51B5"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/logOut"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -39,7 +41,8 @@
                     android:layout_marginTop="5dp"
                     android:layout_marginEnd="10dp"
                     android:layout_marginBottom="5dp"
-                    android:text="Log out"
+                    android:text="@string/log_out"
+                    android:textColor="#3F51B5"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
 
@@ -51,7 +54,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
                 android:layout_gravity="center"
+                android:textStyle="bold"
+                android:textColor="#000000"
+                android:textSize="30dp"
                 android:text="" />
 
             <TextView
@@ -76,6 +85,7 @@
                     android:src="@drawable/baseline_date_range_24"
                     app:layout_constraintBottom_toBottomOf="parent"
                     android:layout_marginStart="20dp"
+                    android:backgroundTint="#FF5722"
                     android:layout_marginTop="20dp"
                     />
 
@@ -88,23 +98,64 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="20dp"
+                    android:textStyle="bold"
                     android:text="" />
             </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/textView9"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:textStyle="bold"
+                android:textColor="#FF3D00"
+                android:text="MONTHLY INFO" />
+
+            <TextView
+                android:id="@+id/monthlyLimitExceeded"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="MONTHLY LIMIT EXCEEDED!"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:textColor="#FF1100"
+                android:layout_marginTop="10dp"/>
 
             <TextView
                 android:id="@+id/monthlyLimitInfo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="15dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
                 android:text="" />
+            <TextView
+                android:id="@+id/textView15"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:textStyle="bold"
+                android:textColor="#FF3D00"
+                android:text="DAILY INFO" />
 
+            <TextView
+                android:id="@+id/dailyLimitExceeded"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="DAILY LIMIT EXCEEDED!"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:textColor="#FF1100"
+                android:layout_marginTop="10dp"/>
             <TextView
                 android:id="@+id/dailyLimitInfo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="15dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
                 android:text="" />
@@ -130,6 +181,8 @@
                     android:layout_marginTop="20dp"
                     android:ems="10"
                     android:hint="Price"
+                    android:backgroundTint="#FF511A"
+                    android:textCursorDrawable="@null"
                     android:inputType="number"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/item"
@@ -145,6 +198,8 @@
                     android:ems="10"
                     android:hint="Item"
                     android:inputType="textPersonName"
+                    android:backgroundTint="#FF511A"
+                    android:textCursorDrawable="@null"
                     android:text=""
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -157,6 +212,7 @@
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="20dp"
                     android:text="Button"
+                    android:backgroundTint="#FF5722"
                     android:src="@drawable/baseline_add_24"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/price"
