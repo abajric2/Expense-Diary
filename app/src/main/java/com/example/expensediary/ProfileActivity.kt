@@ -105,6 +105,23 @@ class ProfileActivity : AppCompatActivity() {
             }
             startActivity(intent)
         }
+
+        delete.setOnClickListener {
+            val scope = CoroutineScope(Job() + Dispatchers.Main)
+            scope.launch {
+                UserRepository.delete(user!!, context)
+                val builder = AlertDialog.Builder(context)
+                builder.setTitle("Successfully deleted!")
+                builder.setMessage("Your account is deleted and you will be logged out!")
+                builder.setCancelable(false)
+                builder.setPositiveButton("OK") { dialog, which ->
+                    val intent = Intent(context, LoginActivity::class.java).apply {
+                    }
+                    startActivity(intent)
+                }
+                builder.show()
+            }
+        }
     }
     private fun setEditTextNotEditable(editText: EditText) {
         editText.isFocusable = false
