@@ -76,7 +76,7 @@ class ProfileActivity : AppCompatActivity() {
         update.setOnClickListener {
             val scope = CoroutineScope(Job() + Dispatchers.Main)
             scope.launch {
-                if(UserRepository.usernameExists(username.text.toString(), context, user!!.id)) {
+                if (UserRepository.usernameExists(username.text.toString(), context, user!!.id)) {
                     val builder = AlertDialog.Builder(context)
                     builder.setTitle("Update error!")
                     builder.setMessage("Username that you entered already exists")
@@ -126,11 +126,35 @@ class ProfileActivity : AppCompatActivity() {
             startActivity(intent)
         }
         delete.setOnClickListener {
-            val scope = CoroutineScope(Job() + Dispatchers.Main)
-            scope.launch {
-                UserRepository.delete(user!!, context)
-                val builder = AlertDialog.Builder(context)
-                builder.setTitle("Successfully deleted!")
+            val confirmationDialog = AlertDialog.Builder(this)
+                .setTitle("Deleting confirmation")
+                .setMessage("Are you sure you want to delete your account?")
+                .setPositiveButton("YES") { _, _ ->
+                    val scope = CoroutineScope(Job() + Dispatchers.Main)
+                    scope.launch {
+                        UserRepository.delete(user!!, context)
+                        val builder = AlertDialog.Builder(context)
+                        val positiveResponseDialog = AlertDialog.Builder(context)
+                            .setCancelable(false)
+                            .setTitle("Successfully deleted!")
+                            .setMessage("Your account is deleted and you will be logged out!")
+                            .setPositiveButton("OK") { dialog, _ ->
+                                val intent = Intent(context, LoginActivity::class.java).apply {
+                                }
+                                startActivity(intent)
+                            }
+                            .create()
+
+                        positiveResponseDialog.show()
+                    }
+                }
+                .setNegativeButton("NO") { dialog, _ ->
+                    dialog.dismiss()
+                }
+                .create()
+
+            confirmationDialog.show()
+            /* builder.setTitle("Successfully deleted!")
                 builder.setMessage("Your account is deleted and you will be logged out!")
                 builder.setCancelable(false)
                 builder.setPositiveButton("OK") { dialog, which ->
@@ -138,16 +162,17 @@ class ProfileActivity : AppCompatActivity() {
                     }
                     startActivity(intent)
                 }
-                builder.show()
-            }
+                builder.show()*/
         }
     }
+
     private fun setEditTextNotEditable(editText: EditText) {
         editText.isFocusable = false
         editText.isFocusableInTouchMode = false
         editText.isCursorVisible = false
         editText.keyListener = null
     }
+
     private fun setEditTextEditable(editText: EditText) {
         editText.isFocusable = true
         editText.isFocusableInTouchMode = true
