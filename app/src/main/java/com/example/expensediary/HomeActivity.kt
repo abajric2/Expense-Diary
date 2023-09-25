@@ -20,6 +20,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import org.w3c.dom.Text
 import java.sql.Date
 import java.text.SimpleDateFormat
 import java.util.*
@@ -39,6 +40,7 @@ class HomeActivity : AppCompatActivity(), ExpenseListAdapter.ButtonClickListener
     private lateinit var price: EditText
     private lateinit var showMonthlyList: Button
     private lateinit var showDailyList: Button
+    private lateinit var listInfo: TextView
     private lateinit var logOut: TextView
     private lateinit var profile: TextView
     private var user: User? = null
@@ -56,6 +58,7 @@ class HomeActivity : AppCompatActivity(), ExpenseListAdapter.ButtonClickListener
         addExpense = findViewById(R.id.addExpense)
         datePicker = findViewById(R.id.datePicker)
         logOut = findViewById(R.id.logOut)
+        listInfo = findViewById(R.id.listInfo)
         profile = findViewById(R.id.profile)
         showDailyList = findViewById(R.id.showDailyList)
         showMonthlyList = findViewById(R.id.showMonthlyList)
@@ -125,6 +128,8 @@ class HomeActivity : AppCompatActivity(), ExpenseListAdapter.ButtonClickListener
                 expenseListAdapter.updateExpenses(expenses)
                 showMonthlyList.visibility = View.INVISIBLE
                 showDailyList.visibility = View.VISIBLE
+                val listInfoText = "Details of your monthly expenses"
+                listInfo.text = listInfoText
             }
         }
         showDailyList.setOnClickListener {
@@ -134,6 +139,8 @@ class HomeActivity : AppCompatActivity(), ExpenseListAdapter.ButtonClickListener
                 expenseListAdapter.updateExpenses(expenses)
                 showDailyList.visibility = View.INVISIBLE
                 showMonthlyList.visibility = View.VISIBLE
+                val listInfoText = "Details of your daily expenses"
+                listInfo.text = listInfoText
             }
         }
         logOut.setOnClickListener {
@@ -147,6 +154,8 @@ class HomeActivity : AppCompatActivity(), ExpenseListAdapter.ButtonClickListener
             }
             startActivity(intent)
         }
+        val listInfoText = "Details of your daily expenses"
+        listInfo.text = listInfoText
         setMonthlyLimitInfo()
         setDailyLimitInfo()
     }
