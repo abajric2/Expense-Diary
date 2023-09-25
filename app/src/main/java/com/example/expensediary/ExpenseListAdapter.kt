@@ -15,6 +15,8 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import java.sql.Date
+import java.text.SimpleDateFormat
 
 class ExpenseListAdapter(
 private var expenses: List<Expense>,
@@ -37,10 +39,16 @@ private val clickListener: ButtonClickListener
         holder.item.text = expenses[position].item
         val price: String = expenses[position].price.toString() + " " + (user?.currency ?: "")
         holder.price.text = price
+        val scope = CoroutineScope(Job() + Dispatchers.Main)
+        scope.launch {
+            val expenseDate = ExpenseRepository.getDate(expenses[position].id, context)
+            holder.date.text = expenseDate
+        }
         holder.delete.setOnClickListener {
             clickListener.onButtonClick(expenses[position].id)
         }
     }
+
     fun updateExpenses(expenses: List<Expense>) {
         this.expenses = expenses
         notifyDataSetChanged()
@@ -48,6 +56,7 @@ private val clickListener: ButtonClickListener
     inner class ExpenseViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val item: TextView = itemView.findViewById(R.id.item)
         val price: TextView = itemView.findViewById(R.id.price)
+        val date: TextView = itemView.findViewById(R.id.date)
         val delete: ImageButton = itemView.findViewById(R.id.delete)
     }
 }

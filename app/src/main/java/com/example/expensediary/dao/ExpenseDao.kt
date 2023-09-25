@@ -42,4 +42,6 @@ interface ExpenseDao {
         AND user_id = :user_id
         """)
     suspend fun getUsersMonthlySum(user_id: Long, expense_date: String) : Int
+    @Query("SELECT strftime('%Y-%m-%d', expense_date) FROM expenses WHERE id = :id")
+    suspend fun getDate(id: Long): String
 }

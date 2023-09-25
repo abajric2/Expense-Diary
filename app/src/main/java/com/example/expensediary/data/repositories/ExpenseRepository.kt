@@ -38,5 +38,9 @@ class ExpenseRepository {
             var db = AppDatabase.getInstance(context)
             db!!.expenseDao().delete(id)
         }
+        suspend fun getDate(id: Long, context: Context): String = withContext(Dispatchers.IO) {
+            var db = AppDatabase.getInstance(context)
+            db!!.expenseDao().getDate(id)
+        }
     }
 }
