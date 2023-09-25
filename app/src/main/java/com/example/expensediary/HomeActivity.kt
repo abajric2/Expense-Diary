@@ -156,6 +156,8 @@ class HomeActivity : AppCompatActivity(), ExpenseListAdapter.ButtonClickListener
         }
         val listInfoText = "Details of your daily expenses"
         listInfo.text = listInfoText
+        dailyLimitExceeded.visibility = View.GONE
+        monthlyLimitExceeded.visibility = View.GONE
         setMonthlyLimitInfo()
         setDailyLimitInfo()
     }
@@ -198,6 +200,7 @@ class HomeActivity : AppCompatActivity(), ExpenseListAdapter.ButtonClickListener
                     context
                 )
                 info += "\n\nDAILY EXPENSE: " + sum + " " + user!!.currency
+                println("Suma " + sum + " daily limit " + user!!.dailyLimit)
                 if (sum > user!!.dailyLimit) {
                     dailyLimitExceeded.visibility = View.VISIBLE
                     info += "\n\nAMOUNT OF OVERFLOW:  " + (sum - user!!.dailyLimit) + " " + user!!.currency
