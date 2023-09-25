@@ -33,6 +33,7 @@ interface ExpenseDao {
         FROM expenses 
         WHERE strftime('%Y-%m', expense_date) = strftime('%Y-%m', :expense_date) 
         AND user_id = :user_id
+        ORDER BY expense_date
         """)
     suspend fun getUsersExpensesByMonth(user_id: Long, expense_date: String): List<Expense>
     @Query("""
