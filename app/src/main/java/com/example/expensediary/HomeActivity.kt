@@ -4,6 +4,7 @@ import android.app.DatePickerDialog
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
@@ -33,6 +34,8 @@ class HomeActivity : AppCompatActivity(), ExpenseListAdapter.ButtonClickListener
     private lateinit var addExpense: ImageButton
     private lateinit var item: EditText
     private lateinit var price: EditText
+    private lateinit var showMonthlyList: Button
+    private lateinit var showDailyList: Button
     private var user: User? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,6 +48,9 @@ class HomeActivity : AppCompatActivity(), ExpenseListAdapter.ButtonClickListener
         selectedDate = findViewById(R.id.selectedDate)
         addExpense = findViewById(R.id.addExpense)
         datePicker = findViewById(R.id.datePicker)
+        showDailyList = findViewById(R.id.showDailyList)
+        showMonthlyList = findViewById(R.id.showMonthlyList)
+        showDailyList.visibility = View.INVISIBLE
         item = findViewById(R.id.item)
         price = findViewById(R.id.price)
         expenses = listOf()
@@ -71,7 +77,19 @@ class HomeActivity : AppCompatActivity(), ExpenseListAdapter.ButtonClickListener
             updateSelectedDate(calendar)
             val scope = CoroutineScope(Job() + Dispatchers.Main)
             scope.launch {
-                expenses = ExpenseRepository.getUsersExpensesByDate(user!!.id, selectedDate.text.toString(), context)
+                if(showDailyList.visibility == View.VISIBLE) {
+                    expenses = ExpenseRepository.getUsersExpensesByMonth(
+                        user!!.id,
+                        selectedDate.text.toString(),
+                        context
+                    )
+                } else {
+                    expenses = ExpenseRepository.getUsersExpensesByDate(
+                        user!!.id,
+                        selectedDate.text.toString(),
+                        context
+                    )
+                }
                 expenseListAdapter.updateExpenses(expenses)
                 setDailyLimitInfo()
                 setMonthlyLimitInfo()
@@ -89,6 +107,24 @@ class HomeActivity : AppCompatActivity(), ExpenseListAdapter.ButtonClickListener
                 expenseListAdapter.updateExpenses(expenses)
                 setDailyLimitInfo()
                 setMonthlyLimitInfo()
+            }
+        }
+        showMonthlyList.setOnClickListener {
+            val scope = CoroutineScope(Job() + Dispatchers.Main)
+            scope.launch {
+                expenses = ExpenseRepository.getUsersExpensesByMonth(user!!.id, selectedDate.text.toString(), context)
+                expenseListAdapter.updateExpenses(expenses)
+                showMonthlyList.visibility = View.INVISIBLE
+                showDailyList.visibility = View.VISIBLE
+            }
+        }
+        showDailyList.setOnClickListener {
+            val scope = CoroutineScope(Job() + Dispatchers.Main)
+            scope.launch {
+                expenses = ExpenseRepository.getUsersExpensesByDate(user!!.id, selectedDate.text.toString(), context)
+                expenseListAdapter.updateExpenses(expenses)
+                showDailyList.visibility = View.INVISIBLE
+                showMonthlyList.visibility = View.VISIBLE
             }
         }
         setMonthlyLimitInfo()

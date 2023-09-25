@@ -15,6 +15,11 @@ class ExpenseRepository {
             val expenses: List<Expense> = db!!.expenseDao().getUsersExpensesByDate(user_id, expense_date)
             expenses
         }
+        suspend fun getUsersExpensesByMonth(user_id: Long, expense_date: String, context: Context): List<Expense> = withContext(Dispatchers.IO) {
+            var db = AppDatabase.getInstance(context)
+            val expenses: List<Expense> = db!!.expenseDao().getUsersExpensesByMonth(user_id, expense_date)
+            expenses
+        }
         suspend fun getUsersMonthlySum(user_id: Long, date: String, context: Context): Int = withContext(Dispatchers.IO) {
             var db = AppDatabase.getInstance(context)
             val sum: Int = db!!.expenseDao().getUsersMonthlySum(user_id, date)

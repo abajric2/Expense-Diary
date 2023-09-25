@@ -29,6 +29,13 @@ interface ExpenseDao {
         """)
     suspend fun getUsersExpensesByDate(user_id: Long, expense_date: String): List<Expense>
     @Query("""
+        SELECT *
+        FROM expenses 
+        WHERE strftime('%Y-%m', expense_date) = strftime('%Y-%m', :expense_date) 
+        AND user_id = :user_id
+        """)
+    suspend fun getUsersExpensesByMonth(user_id: Long, expense_date: String): List<Expense>
+    @Query("""
         SELECT IFNULL(SUM(price) ,0)
         FROM expenses 
         WHERE expense_date = :expense_date 
