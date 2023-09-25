@@ -22,7 +22,7 @@ import java.sql.Date
 import java.text.SimpleDateFormat
 import java.util.*
 
-class HomeActivity : AppCompatActivity() {
+class HomeActivity : AppCompatActivity(), ExpenseListAdapter.ButtonClickListener {
     private lateinit var selectedDate: TextView
     private lateinit var datePicker: ImageButton
     private lateinit var expenseList: RecyclerView
@@ -55,7 +55,7 @@ class HomeActivity : AppCompatActivity() {
             LinearLayoutManager.VERTICAL,
             false
         )
-        expenseListAdapter = ExpenseListAdapter(listOf(), user)
+        expenseListAdapter = ExpenseListAdapter(listOf(), user, this, this)
         expenseList.adapter = expenseListAdapter
         val context: Context = this
         val scope = CoroutineScope(Job() + Dispatchers.Main)
@@ -94,6 +94,7 @@ class HomeActivity : AppCompatActivity() {
         setMonthlyLimitInfo()
         setDailyLimitInfo()
     }
+
     private fun setMonthlyLimitInfo() {
         val context: Context = this
         val scope = CoroutineScope(Job() + Dispatchers.Main)
@@ -118,7 +119,7 @@ class HomeActivity : AppCompatActivity() {
             monthlyLimitInfo.text = info
         }
     }
-    private fun setDailyLimitInfo() {
+     private fun setDailyLimitInfo() {
         val context: Context = this
         val scope = CoroutineScope(Job() + Dispatchers.Main)
         scope.launch {
@@ -147,5 +148,16 @@ class HomeActivity : AppCompatActivity() {
         val format = "yyyy-MM-dd"
         val sdf = SimpleDateFormat(format, Locale.UK)
         selectedDate.text = sdf.format(calendar.time)
+    }
+    override fun onButtonClick(expense_id: Long) {
+        val context: Context = this
+        val scope = CoroutineScope(Job() + Dispatchers.Main)
+        scope.launch {
+            ExpenseRepository.delete(expense_id, context)
+            expenses = ExpenseRepository.getUsersExpensesByDate(user!!.id, selectedDate.text.toString(), context)
+            expenseListAdapter.updateExpenses(expenses)
+            setDailyLimitInfo()
+            setMonthlyLimitInfo()
+        }
     }
 }
