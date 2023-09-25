@@ -42,5 +42,9 @@ class UserRepository {
             var db = AppDatabase.getInstance(context)
             db!!.userDao().updateAll(user)
         }
+        suspend fun delete(user: User, context: Context) = withContext(Dispatchers.IO) {
+            var db = AppDatabase.getInstance(context)
+            db!!.userDao().delete(user)
+        }
     }
 }
