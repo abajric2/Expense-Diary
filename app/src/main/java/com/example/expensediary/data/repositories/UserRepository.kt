@@ -18,11 +18,14 @@ class UserRepository {
             var db = AppDatabase.getInstance(context)
             db!!.userDao().insertAll(user)
         }
-        suspend fun usernameExists(username: String, context: Context): Boolean = withContext(Dispatchers.IO) {
+        suspend fun usernameExists(username: String, context: Context, user_id: Long? = null): Boolean = withContext(Dispatchers.IO) {
             var db = AppDatabase.getInstance(context)
             val users: List<User> = db!!.userDao().searchByUsername(username)
             var usernameExists: Boolean = false
-            if(users.isNotEmpty()) usernameExists = true
+            if(users.isNotEmpty()) {
+                usernameExists = true
+                if(user_id != null && users[0].id == user_id) usernameExists = false
+            }
             usernameExists
         }
         suspend fun logIn(username: String, password: String, context: Context): User? = withContext(Dispatchers.IO) {

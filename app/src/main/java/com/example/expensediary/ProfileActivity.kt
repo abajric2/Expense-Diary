@@ -74,29 +74,44 @@ class ProfileActivity : AppCompatActivity() {
         }
         var context: Context = this
         update.setOnClickListener {
-            var updatedUser = User(id = user!!.id, firstName = firstName.text.toString(), lastName = lastName.text.toString(),
-                            username = username.text.toString(), password = password.text.toString(),
-                            dailyLimit = dailyLimit.text.toString().toInt(), monthlyLimit = monthlyLimit.text.toString().toInt(),
-                            currency = currency.text.toString())
             val scope = CoroutineScope(Job() + Dispatchers.Main)
             scope.launch {
-                UserRepository.update(updatedUser, context)
-                val builder = AlertDialog.Builder(context)
-                builder.setTitle("Update success!")
-                builder.setMessage("Data successfully updated!")
-                builder.setPositiveButton("OK") { dialog, which ->
+                if(UserRepository.usernameExists(username.text.toString(), context, user!!.id)) {
+                    val builder = AlertDialog.Builder(context)
+                    builder.setTitle("Update error!")
+                    builder.setMessage("Username that you entered already exists")
+                    builder.setPositiveButton("OK") { dialog, which ->
+                    }
+                    builder.show()
+                } else {
+                    var updatedUser = User(
+                        id = user!!.id,
+                        firstName = firstName.text.toString(),
+                        lastName = lastName.text.toString(),
+                        username = username.text.toString(),
+                        password = password.text.toString(),
+                        dailyLimit = dailyLimit.text.toString().toInt(),
+                        monthlyLimit = monthlyLimit.text.toString().toInt(),
+                        currency = currency.text.toString()
+                    )
+                    UserRepository.update(updatedUser, context)
+                    val builder = AlertDialog.Builder(context)
+                    builder.setTitle("Update success!")
+                    builder.setMessage("Data successfully updated!")
+                    builder.setPositiveButton("OK") { dialog, which ->
+                    }
+                    builder.show()
+                    user = updatedUser
+                    setEditTextNotEditable(firstName)
+                    setEditTextNotEditable(lastName)
+                    setEditTextNotEditable(username)
+                    setEditTextNotEditable(password)
+                    setEditTextNotEditable(dailyLimit)
+                    setEditTextNotEditable(monthlyLimit)
+                    setEditTextNotEditable(currency)
+                    update.visibility = View.INVISIBLE
+                    edit.visibility = View.VISIBLE
                 }
-                builder.show()
-                user = updatedUser
-                setEditTextNotEditable(firstName)
-                setEditTextNotEditable(lastName)
-                setEditTextNotEditable(username)
-                setEditTextNotEditable(password)
-                setEditTextNotEditable(dailyLimit)
-                setEditTextNotEditable(monthlyLimit)
-                setEditTextNotEditable(currency)
-                update.visibility = View.INVISIBLE
-                edit.visibility = View.VISIBLE
             }
         }
         home.setOnClickListener {
