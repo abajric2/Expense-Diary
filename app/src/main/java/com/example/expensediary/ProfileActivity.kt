@@ -105,7 +105,11 @@ class ProfileActivity : AppCompatActivity() {
             }
             startActivity(intent)
         }
-
+        logOut.setOnClickListener {
+            val intent = Intent(context, LoginActivity::class.java).apply {
+            }
+            startActivity(intent)
+        }
         delete.setOnClickListener {
             val scope = CoroutineScope(Job() + Dispatchers.Main)
             scope.launch {
