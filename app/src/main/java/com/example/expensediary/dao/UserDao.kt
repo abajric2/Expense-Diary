@@ -1,9 +1,6 @@
 package com.example.expensediary.dao
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
 import com.example.expensediary.data.User
 
 @Dao
@@ -12,6 +9,8 @@ interface UserDao {
     suspend fun getAll(): List<User>
     @Insert
     suspend fun insertAll(vararg users: User)
+    @Update
+    suspend fun updateAll(vararg users: User)
     @Query("SELECT * FROM users WHERE id = :id")
     suspend fun getById(id: Long): List<User>
     @Delete

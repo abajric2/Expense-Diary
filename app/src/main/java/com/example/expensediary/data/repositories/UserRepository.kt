@@ -38,5 +38,9 @@ class UserRepository {
             if(users.isNotEmpty() && users.size == 1) users.get(0)
             else null
         }
+        suspend fun update(user: User, context: Context) = withContext(Dispatchers.IO) {
+            var db = AppDatabase.getInstance(context)
+            db!!.userDao().updateAll(user)
+        }
     }
 }
