@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFD0C2"
     tools:context=".ProfileActivity">
     <ScrollView
         android:layout_width="match_parent"
@@ -23,7 +24,8 @@
                 android:layout_marginTop="5dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginBottom="5dp"
-                android:text="Home"
+                android:text="@string/home"
+                android:textColor="#3F51B5"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/logOut"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -35,7 +37,8 @@
                 android:layout_marginTop="5dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="5dp"
-                android:text="Log out"
+                android:text="@string/log_out"
+                android:textColor="#3F51B5"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
 
@@ -47,8 +50,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="50dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginEnd="50dp"
             android:layout_marginBottom="30dp"
             android:text="
 Your personal information is shown below. If you want to edit them, click Edit to unlock the fields!" />
@@ -62,6 +65,8 @@ Your personal information is shown below. If you want to edit them, click Edit t
             android:layout_marginTop="10dp"
             android:layout_marginStart="50dp"
             android:layout_marginEnd="50dp"
+            android:backgroundTint="#FF511A"
+            android:textCursorDrawable="@null"
             android:inputType="textPersonName" />
 
         <EditText
@@ -73,6 +78,8 @@ Your personal information is shown below. If you want to edit them, click Edit t
             android:layout_marginTop="10dp"
             android:layout_marginStart="50dp"
             android:layout_marginEnd="50dp"
+            android:backgroundTint="#FF511A"
+            android:textCursorDrawable="@null"
             android:inputType="textPersonName" />
 
         <EditText
@@ -84,6 +91,8 @@ Your personal information is shown below. If you want to edit them, click Edit t
             android:layout_marginStart="50dp"
             android:layout_marginEnd="50dp"
             android:hint="Username"
+            android:backgroundTint="#FF511A"
+            android:textCursorDrawable="@null"
             android:inputType="textPersonName" />
 
         <EditText
@@ -95,6 +104,8 @@ Your personal information is shown below. If you want to edit them, click Edit t
             android:layout_marginStart="50dp"
             android:layout_marginEnd="50dp"
             android:hint="Password"
+            android:backgroundTint="#FF511A"
+            android:textCursorDrawable="@null"
             android:inputType="textPersonName" />
 
         <EditText
@@ -106,6 +117,8 @@ Your personal information is shown below. If you want to edit them, click Edit t
             android:layout_marginStart="50dp"
             android:layout_marginEnd="50dp"
             android:hint="Daily limit"
+            android:backgroundTint="#FF511A"
+            android:textCursorDrawable="@null"
             android:inputType="number" />
 
         <EditText
@@ -117,6 +130,8 @@ Your personal information is shown below. If you want to edit them, click Edit t
             android:layout_marginStart="50dp"
             android:layout_marginEnd="50dp"
             android:hint="Monthly limit"
+            android:backgroundTint="#FF511A"
+            android:textCursorDrawable="@null"
             android:inputType="number" />
 
         <EditText
@@ -128,6 +143,8 @@ Your personal information is shown below. If you want to edit them, click Edit t
             android:layout_marginStart="50dp"
             android:layout_marginEnd="50dp"
             android:hint="Currency"
+            android:backgroundTint="#FF511A"
+            android:textCursorDrawable="@null"
             android:inputType="textPersonName" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -159,9 +176,9 @@ Your personal information is shown below. If you want to edit them, click Edit t
             android:id="@+id/textView11"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginEnd="50dp"
             android:text="You can delete your account by clicking the button below. Be aware that if you do this, all your data will be removed, and if you want to use the app again, you will need to register." />
 
         <Button

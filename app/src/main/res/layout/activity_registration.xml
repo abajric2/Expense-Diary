@@ -29,12 +29,13 @@
 
             <EditText
                 android:id="@+id/firstName"
-                android:layout_width="250dp"
+                android:layout_width="match_parent"
+                android:layout_marginStart="60dp"
+                android:layout_marginEnd="60dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:ems="10"
                 android:layout_marginTop="30dp"
-                android:layout_marginBottom="10dp"
                 android:backgroundTint="#FF511A"
                 android:textCursorDrawable="@null"
                 android:hint="First name"
@@ -42,12 +43,13 @@
 
             <EditText
                 android:id="@+id/lastName"
-                android:layout_width="250dp"
+                android:layout_width="match_parent"
+                android:layout_marginStart="60dp"
+                android:layout_marginEnd="60dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:ems="10"
                 android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
                 android:backgroundTint="#FF511A"
                 android:textCursorDrawable="@null"
                 android:hint="Last name"
@@ -55,12 +57,13 @@
 
             <EditText
                 android:id="@+id/username"
-                android:layout_width="250dp"
+                android:layout_width="match_parent"
+                android:layout_marginStart="60dp"
+                android:layout_marginEnd="60dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:ems="10"
                 android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
                 android:backgroundTint="#FF511A"
                 android:textCursorDrawable="@null"
                 android:hint="Username"
@@ -68,7 +71,9 @@
 
             <EditText
                 android:id="@+id/password"
-                android:layout_width="250dp"
+                android:layout_width="match_parent"
+                android:layout_marginStart="60dp"
+                android:layout_marginEnd="60dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:ems="10"
@@ -81,7 +86,9 @@
 
             <TextView
                 android:id="@+id/textView2"
-                android:layout_width="250dp"
+                android:layout_width="match_parent"
+                android:layout_marginStart="60dp"
+                android:layout_marginEnd="60dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginBottom="5dp"
@@ -90,12 +97,13 @@
 
             <EditText
                 android:id="@+id/monthlyLimit"
-                android:layout_width="250dp"
+                android:layout_width="match_parent"
+                android:layout_marginStart="60dp"
+                android:layout_marginEnd="60dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:ems="10"
                 android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
                 android:backgroundTint="#FF511A"
                 android:textCursorDrawable="@null"
                 android:hint="Monthly limit"
@@ -103,7 +111,9 @@
 
             <EditText
                 android:id="@+id/dailyLimit"
-                android:layout_width="250dp"
+                android:layout_width="match_parent"
+                android:layout_marginStart="60dp"
+                android:layout_marginEnd="60dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:ems="10"
@@ -116,7 +126,9 @@
 
             <TextView
                 android:id="@+id/textView5"
-                android:layout_width="250dp"
+                android:layout_width="match_parent"
+                android:layout_marginStart="60dp"
+                android:layout_marginEnd="60dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginBottom="5dp"
@@ -125,7 +137,9 @@
 
             <EditText
                 android:id="@+id/currency"
-                android:layout_width="250dp"
+                android:layout_width="match_parent"
+                android:layout_marginStart="60dp"
+                android:layout_marginEnd="60dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:ems="10"
@@ -137,7 +151,9 @@
 
             <Button
                 android:id="@+id/signUp"
-                android:layout_width="250dp"
+                android:layout_width="match_parent"
+                android:layout_marginStart="60dp"
+                android:layout_marginEnd="60dp"
                 android:layout_height="wrap_content"
                 android:text="sign up"
                 android:backgroundTint="#FF5722"

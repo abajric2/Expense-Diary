@@ -4,4 +4,5 @@
     <string name="log_in"><u>Log In</u></string>
     <string name="log_out"><u>Log Out</u></string>
     <string name="profile"><u>Profile</u></string>
+    <string name="home"><u>Home</u></string>
 </resources>
