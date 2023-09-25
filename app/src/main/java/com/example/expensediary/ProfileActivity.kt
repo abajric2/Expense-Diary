@@ -1,11 +1,20 @@
 package com.example.expensediary
 
+import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import com.example.expensediary.data.User
+import com.example.expensediary.data.repositories.UserRepository
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 
 class ProfileActivity : AppCompatActivity() {
     private lateinit var firstName: EditText
@@ -44,5 +53,69 @@ class ProfileActivity : AppCompatActivity() {
         dailyLimit.setText((user!!.dailyLimit).toString())
         monthlyLimit.setText((user!!.monthlyLimit).toString())
         currency.setText(user!!.currency)
+        setEditTextNotEditable(firstName)
+        setEditTextNotEditable(lastName)
+        setEditTextNotEditable(username)
+        setEditTextNotEditable(password)
+        setEditTextNotEditable(dailyLimit)
+        setEditTextNotEditable(monthlyLimit)
+        setEditTextNotEditable(currency)
+        update.visibility = View.INVISIBLE
+        edit.setOnClickListener {
+            setEditTextEditable(firstName)
+            setEditTextEditable(lastName)
+            setEditTextEditable(username)
+            setEditTextEditable(password)
+            setEditTextEditable(dailyLimit)
+            setEditTextEditable(monthlyLimit)
+            setEditTextEditable(currency)
+            edit.visibility = View.INVISIBLE
+            update.visibility = View.VISIBLE
+        }
+        var context: Context = this
+        update.setOnClickListener {
+            var updatedUser = User(id = user!!.id, firstName = firstName.text.toString(), lastName = lastName.text.toString(),
+                            username = username.text.toString(), password = password.text.toString(),
+                            dailyLimit = dailyLimit.text.toString().toInt(), monthlyLimit = monthlyLimit.text.toString().toInt(),
+                            currency = currency.text.toString())
+            val scope = CoroutineScope(Job() + Dispatchers.Main)
+            scope.launch {
+                UserRepository.update(updatedUser, context)
+                val builder = AlertDialog.Builder(context)
+                builder.setTitle("Update success!")
+                builder.setMessage("Data successfully updated!")
+                builder.setPositiveButton("OK") { dialog, which ->
+                }
+                builder.show()
+                user = updatedUser
+                setEditTextNotEditable(firstName)
+                setEditTextNotEditable(lastName)
+                setEditTextNotEditable(username)
+                setEditTextNotEditable(password)
+                setEditTextNotEditable(dailyLimit)
+                setEditTextNotEditable(monthlyLimit)
+                setEditTextNotEditable(currency)
+                update.visibility = View.INVISIBLE
+                edit.visibility = View.VISIBLE
+            }
+        }
+        home.setOnClickListener {
+            val intent = Intent(context, HomeActivity::class.java).apply {
+                putExtra("user", user)
+            }
+            startActivity(intent)
+        }
+    }
+    private fun setEditTextNotEditable(editText: EditText) {
+        editText.isFocusable = false
+        editText.isFocusableInTouchMode = false
+        editText.isCursorVisible = false
+        editText.keyListener = null
+    }
+    private fun setEditTextEditable(editText: EditText) {
+        editText.isFocusable = true
+        editText.isFocusableInTouchMode = true
+        editText.isCursorVisible = true
+        editText.keyListener = EditText(this).keyListener
     }
 }
