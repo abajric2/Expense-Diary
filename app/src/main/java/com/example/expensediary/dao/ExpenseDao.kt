@@ -20,6 +20,8 @@ interface ExpenseDao {
     suspend fun insert(user_id: Long, item: String, price: Int, expense_date: String)
     @Delete
     suspend fun delete(expense: Expense)
+    @Query("DELETE FROM expenses WHERE id = :id")
+    suspend fun delete(id: Long)
     @Query("""
         SELECT * FROM expenses 
         WHERE user_id = :user_id 
