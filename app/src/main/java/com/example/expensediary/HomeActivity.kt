@@ -2,6 +2,7 @@ package com.example.expensediary
 
 import android.app.DatePickerDialog
 import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -36,6 +37,7 @@ class HomeActivity : AppCompatActivity(), ExpenseListAdapter.ButtonClickListener
     private lateinit var price: EditText
     private lateinit var showMonthlyList: Button
     private lateinit var showDailyList: Button
+    private lateinit var logOut: TextView
     private var user: User? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,6 +50,7 @@ class HomeActivity : AppCompatActivity(), ExpenseListAdapter.ButtonClickListener
         selectedDate = findViewById(R.id.selectedDate)
         addExpense = findViewById(R.id.addExpense)
         datePicker = findViewById(R.id.datePicker)
+        logOut = findViewById(R.id.logOut)
         showDailyList = findViewById(R.id.showDailyList)
         showMonthlyList = findViewById(R.id.showMonthlyList)
         showDailyList.visibility = View.INVISIBLE
@@ -126,6 +129,11 @@ class HomeActivity : AppCompatActivity(), ExpenseListAdapter.ButtonClickListener
                 showDailyList.visibility = View.INVISIBLE
                 showMonthlyList.visibility = View.VISIBLE
             }
+        }
+        logOut.setOnClickListener {
+            val intent = Intent(context, LoginActivity::class.java).apply {
+            }
+            startActivity(intent)
         }
         setMonthlyLimitInfo()
         setDailyLimitInfo()
