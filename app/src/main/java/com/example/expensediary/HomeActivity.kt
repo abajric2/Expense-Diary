@@ -38,6 +38,7 @@ class HomeActivity : AppCompatActivity(), ExpenseListAdapter.ButtonClickListener
     private lateinit var showMonthlyList: Button
     private lateinit var showDailyList: Button
     private lateinit var logOut: TextView
+    private lateinit var profile: TextView
     private var user: User? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,6 +52,7 @@ class HomeActivity : AppCompatActivity(), ExpenseListAdapter.ButtonClickListener
         addExpense = findViewById(R.id.addExpense)
         datePicker = findViewById(R.id.datePicker)
         logOut = findViewById(R.id.logOut)
+        profile = findViewById(R.id.profile)
         showDailyList = findViewById(R.id.showDailyList)
         showMonthlyList = findViewById(R.id.showMonthlyList)
         showDailyList.visibility = View.INVISIBLE
@@ -132,6 +134,12 @@ class HomeActivity : AppCompatActivity(), ExpenseListAdapter.ButtonClickListener
         }
         logOut.setOnClickListener {
             val intent = Intent(context, LoginActivity::class.java).apply {
+            }
+            startActivity(intent)
+        }
+        profile.setOnClickListener {
+            val intent = Intent(context, ProfileActivity::class.java).apply {
+                putExtra("user", user)
             }
             startActivity(intent)
         }
