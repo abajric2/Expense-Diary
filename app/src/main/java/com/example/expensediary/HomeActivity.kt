@@ -108,8 +108,14 @@ class HomeActivity : AppCompatActivity(), ExpenseListAdapter.ButtonClickListener
             }
         }
         datePicker.setOnClickListener {
-            DatePickerDialog(this, picker, calendar.get(Calendar.YEAR),
-                calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show()
+            DatePickerDialog(
+                this,
+                R.style.CustomDatePickerDialogTheme,
+                picker,
+                calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH)
+            ).show()
         }
         addExpense.setOnClickListener {
             val scope = CoroutineScope(Job() + Dispatchers.Main)

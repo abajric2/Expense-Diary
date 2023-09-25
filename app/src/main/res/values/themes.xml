@@ -13,4 +13,18 @@
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+    <style name="CustomDatePickerDialogTheme" parent="Theme.AppCompat.Light.Dialog">
+        <!-- Boja pozadine dijaloga -->
+        <item name="colorAccent">#FF5823</item>
+        <item name="colorControlActivated">#FF5722</item>
+        <item name="colorControlHighlight">#FF5722</item>
+        <item name="android:windowBackground">#FFFFFF</item>
+        <!-- Boja teksta -->
+        <item name="android:textColorPrimary">#000000</item>
+
+        <!-- Boja zaglavlja (godina) -->
+        <item name="android:textColorSecondary">#FF3D00</item>
+
+        <!-- Ostale prilagodbe možete dodati ovdje -->
+    </style>
 </resources>
