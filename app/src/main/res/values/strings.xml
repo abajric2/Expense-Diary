@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Expense Diary</string>
+    <string name="app_name">ExpenSave</string>
     <string name="sign_up"><u>Sign Up</u></string>
     <string name="log_in"><u>Log In</u></string>
     <string name="log_out"><u>Log Out</u></string>
