@@ -10,6 +10,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.expensediary.data.Expense
@@ -118,13 +119,34 @@ class HomeActivity : AppCompatActivity(), ExpenseListAdapter.ButtonClickListener
             ).show()
         }
         addExpense.setOnClickListener {
-            val scope = CoroutineScope(Job() + Dispatchers.Main)
-            scope.launch {
-                ExpenseRepository.insert(user!!.id, item.text.toString(), price.text.toString().toDouble(), selectedDate.text.toString(), context)
-                expenses = ExpenseRepository.getUsersExpensesByDate(user!!.id, selectedDate.text.toString(), context)
-                expenseListAdapter.updateExpenses(expenses)
-                setDailyLimitInfo()
-                setMonthlyLimitInfo()
+            if(item.text.toString().trim().isEmpty() ||
+                price.text.toString().trim().isEmpty()) {
+                val builder = AlertDialog.Builder(this)
+                builder.setTitle("Sign up error!")
+                builder.setMessage("You must fill in all fields provided!")
+                builder.setPositiveButton("OK") { dialog, which ->
+                    dialog.dismiss()
+                }
+                builder.show()
+            } else {
+                val scope = CoroutineScope(Job() + Dispatchers.Main)
+                scope.launch {
+                    ExpenseRepository.insert(
+                        user!!.id,
+                        item.text.toString(),
+                        price.text.toString().toDouble(),
+                        selectedDate.text.toString(),
+                        context
+                    )
+                    expenses = ExpenseRepository.getUsersExpensesByDate(
+                        user!!.id,
+                        selectedDate.text.toString(),
+                        context
+                    )
+                    expenseListAdapter.updateExpenses(expenses)
+                    setDailyLimitInfo()
+                    setMonthlyLimitInfo()
+                }
             }
         }
         showMonthlyList.setOnClickListener {
@@ -206,7 +228,6 @@ class HomeActivity : AppCompatActivity(), ExpenseListAdapter.ButtonClickListener
                     context
                 )
                 info += "\n\nDAILY EXPENSE: " + sum + " " + user!!.currency
-                println("Suma " + sum + " daily limit " + user!!.dailyLimit)
                 if (sum > user!!.dailyLimit) {
                     dailyLimitExceeded.visibility = View.VISIBLE
                     info += "\n\nAMOUNT OF OVERFLOW:  " + (sum - user!!.dailyLimit) + " " + user!!.currency
