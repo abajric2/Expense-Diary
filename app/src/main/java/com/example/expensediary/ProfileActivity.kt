@@ -74,43 +74,64 @@ class ProfileActivity : AppCompatActivity() {
         }
         var context: Context = this
         update.setOnClickListener {
-            val scope = CoroutineScope(Job() + Dispatchers.Main)
-            scope.launch {
-                if (UserRepository.usernameExists(username.text.toString(), context, user!!.id)) {
-                    val builder = AlertDialog.Builder(context)
-                    builder.setTitle("Update error!")
-                    builder.setMessage("Username that you entered already exists")
-                    builder.setPositiveButton("OK") { dialog, which ->
+            if(firstName.text.toString().trim().isEmpty() ||
+                lastName.text.toString().trim().isEmpty() ||
+                username.text.toString().trim().isEmpty() ||
+                password.text.toString().trim().isEmpty() ||
+                dailyLimit.text.toString().trim().isEmpty() ||
+                monthlyLimit.text.toString().trim().isEmpty() ||
+                currency.text.toString().trim().isEmpty()) {
+                val builder = AlertDialog.Builder(this)
+                builder.setTitle("Sign up error!")
+                builder.setMessage("You must fill in all fields provided!")
+                builder.setPositiveButton("OK") { dialog, which ->
+                    dialog.dismiss()
+                }
+                builder.show()
+            } else {
+                val scope = CoroutineScope(Job() + Dispatchers.Main)
+                scope.launch {
+                    if (UserRepository.usernameExists(
+                            username.text.toString(),
+                            context,
+                            user!!.id
+                        )
+                    ) {
+                        val builder = AlertDialog.Builder(context)
+                        builder.setTitle("Update error!")
+                        builder.setMessage("Username that you entered already exists")
+                        builder.setPositiveButton("OK") { dialog, which ->
+                        }
+                        builder.show()
+                    } else {
+                        var updatedUser = User(
+                            id = user!!.id,
+                            firstName = firstName.text.toString(),
+                            lastName = lastName.text.toString(),
+                            username = username.text.toString(),
+                            password = password.text.toString(),
+                            dailyLimit = dailyLimit.text.toString().toDouble(),
+                            monthlyLimit = monthlyLimit.text.toString().toDouble(),
+                            currency = currency.text.toString()
+                        )
+                        UserRepository.update(updatedUser, context)
+                        val builder = AlertDialog.Builder(context)
+                        builder.setTitle("Update success!")
+                        builder.setMessage("Data successfully updated!")
+                        builder.setPositiveButton("OK") { dialog, which ->
+                        }
+                        builder.show()
+                        user = updatedUser
+                        setEditTextNotEditable(firstName)
+                        setEditTextNotEditable(lastName)
+                        setEditTextNotEditable(username)
+                        setEditTextNotEditable(password)
+                        setEditTextNotEditable(dailyLimit)
+                        setEditTextNotEditable(monthlyLimit)
+                        setEditTextNotEditable(currency)
+                        update.visibility = View.INVISIBLE
+                        edit.visibility = View.VISIBLE
                     }
-                    builder.show()
-                } else {
-                    var updatedUser = User(
-                        id = user!!.id,
-                        firstName = firstName.text.toString(),
-                        lastName = lastName.text.toString(),
-                        username = username.text.toString(),
-                        password = password.text.toString(),
-                        dailyLimit = dailyLimit.text.toString().toDouble(),
-                        monthlyLimit = monthlyLimit.text.toString().toDouble(),
-                        currency = currency.text.toString()
-                    )
-                    UserRepository.update(updatedUser, context)
-                    val builder = AlertDialog.Builder(context)
-                    builder.setTitle("Update success!")
-                    builder.setMessage("Data successfully updated!")
-                    builder.setPositiveButton("OK") { dialog, which ->
-                    }
-                    builder.show()
-                    user = updatedUser
-                    setEditTextNotEditable(firstName)
-                    setEditTextNotEditable(lastName)
-                    setEditTextNotEditable(username)
-                    setEditTextNotEditable(password)
-                    setEditTextNotEditable(dailyLimit)
-                    setEditTextNotEditable(monthlyLimit)
-                    setEditTextNotEditable(currency)
-                    update.visibility = View.INVISIBLE
-                    edit.visibility = View.VISIBLE
                 }
             }
         }
