@@ -11,7 +11,7 @@ import com.example.expensediary.data.Converters
 import com.example.expensediary.data.Expense
 import com.example.expensediary.data.User
 
-@Database(entities = [User::class, Expense::class], version = 1)
+@Database(entities = [User::class, Expense::class], version = 2)
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun userDao(): UserDao
@@ -19,6 +19,7 @@ abstract class AppDatabase : RoomDatabase() {
     companion object {
         private var INSTANCE: AppDatabase? = null
         fun getInstance(context: Context): AppDatabase {
+           // context.deleteDatabase("expense-diary-db")
             if (INSTANCE == null) {
                 synchronized(AppDatabase::class) {
                     INSTANCE = buildRoomDB(context)
@@ -30,7 +31,7 @@ abstract class AppDatabase : RoomDatabase() {
             Room.databaseBuilder(
                 context.applicationContext,
                 AppDatabase::class.java,
-                "expense-diary-db"
+                "expense-diary-database"
             )
                 .build()
     }

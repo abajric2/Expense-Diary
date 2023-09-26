@@ -183,7 +183,7 @@
                     android:hint="Price"
                     android:backgroundTint="#FF511A"
                     android:textCursorDrawable="@null"
-                    android:inputType="number"
+                    android:inputType="numberDecimal"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/item"
                     app:layout_constraintEnd_toStartOf="@+id/addExpense"

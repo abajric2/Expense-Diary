@@ -38,10 +38,10 @@ class RegistrationActivity : AppCompatActivity() {
             var usersLastName: String = lastName.text.toString()
             var usersUsername: String = username.text.toString()
             var usersPassword: String = password.text.toString()
-            var usersDailyLimit: Int? = dailyLimit.text.toString().toIntOrNull()
-            if(usersDailyLimit == null) usersDailyLimit = 0
-            var usersMonthlyLimit: Int? = monthlyLimit.text.toString().toIntOrNull()
-            if(usersMonthlyLimit == null) usersMonthlyLimit = 0
+            var usersDailyLimit: Double? = dailyLimit.text.toString().toDoubleOrNull()
+            if(usersDailyLimit == null) usersDailyLimit = 0.0
+            var usersMonthlyLimit: Double? = monthlyLimit.text.toString().toDoubleOrNull()
+            if(usersMonthlyLimit == null) usersMonthlyLimit = 0.0
             var usersCurreny: String = currency.text.toString()
             var user: User = User(firstName = usersFirstName, lastName = usersLastName, username = usersUsername,
                 password = usersPassword, dailyLimit = usersDailyLimit, monthlyLimit = usersMonthlyLimit, currency = usersCurreny)

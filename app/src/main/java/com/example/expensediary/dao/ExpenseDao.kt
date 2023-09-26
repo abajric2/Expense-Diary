@@ -17,7 +17,7 @@ interface ExpenseDao {
     @Insert
     suspend fun insertAll(vararg expenses: Expense)
     @Query("INSERT INTO expenses (user_id, item, price, expense_date) VALUES (:user_id, :item, :price, :expense_date)")
-    suspend fun insert(user_id: Long, item: String, price: Int, expense_date: String)
+    suspend fun insert(user_id: Long, item: String, price: Double, expense_date: String)
     @Delete
     suspend fun delete(expense: Expense)
     @Query("DELETE FROM expenses WHERE id = :id")
@@ -42,14 +42,14 @@ interface ExpenseDao {
         WHERE expense_date = :expense_date 
         AND user_id = :user_id
         """)
-    suspend fun getUsersDailySum(user_id: Long, expense_date: String) : Int
+    suspend fun getUsersDailySum(user_id: Long, expense_date: String) : Double
     @Query("""
         SELECT IFNULL(SUM(price) ,0)
         FROM expenses 
         WHERE strftime('%Y-%m', expense_date) = strftime('%Y-%m', :expense_date) 
         AND user_id = :user_id
         """)
-    suspend fun getUsersMonthlySum(user_id: Long, expense_date: String) : Int
+    suspend fun getUsersMonthlySum(user_id: Long, expense_date: String) : Double
     @Query("SELECT strftime('%Y-%m-%d', expense_date) FROM expenses WHERE id = :id")
     suspend fun getDate(id: Long): String
 }

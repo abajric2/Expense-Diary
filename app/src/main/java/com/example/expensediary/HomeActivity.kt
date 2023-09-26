@@ -120,7 +120,7 @@ class HomeActivity : AppCompatActivity(), ExpenseListAdapter.ButtonClickListener
         addExpense.setOnClickListener {
             val scope = CoroutineScope(Job() + Dispatchers.Main)
             scope.launch {
-                ExpenseRepository.insert(user!!.id, item.text.toString(), price.text.toString().toInt(), selectedDate.text.toString(), context)
+                ExpenseRepository.insert(user!!.id, item.text.toString(), price.text.toString().toDouble(), selectedDate.text.toString(), context)
                 expenses = ExpenseRepository.getUsersExpensesByDate(user!!.id, selectedDate.text.toString(), context)
                 expenseListAdapter.updateExpenses(expenses)
                 setDailyLimitInfo()

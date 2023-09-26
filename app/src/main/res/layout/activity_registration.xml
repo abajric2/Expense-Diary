@@ -95,6 +95,7 @@
                 android:layout_marginTop="10dp"
                 android:text="Enter the maximum amount of money you want to spend monthly/daily so that we can notify you if you exceed the desired limit." />
 
+
             <EditText
                 android:id="@+id/monthlyLimit"
                 android:layout_width="match_parent"
@@ -107,7 +108,7 @@
                 android:backgroundTint="#FF511A"
                 android:textCursorDrawable="@null"
                 android:hint="Monthly limit"
-                android:inputType="number" />
+                android:inputType="numberDecimal" />
 
             <EditText
                 android:id="@+id/dailyLimit"
@@ -122,7 +123,7 @@
                 android:backgroundTint="#FF511A"
                 android:textCursorDrawable="@null"
                 android:hint="Daily limit"
-                android:inputType="number" />
+                android:inputType="numberDecimal" />
 
             <TextView
                 android:id="@+id/textView5"

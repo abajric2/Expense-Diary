@@ -119,7 +119,7 @@ Your personal information is shown below. If you want to edit them, click Edit t
             android:hint="Daily limit"
             android:backgroundTint="#FF511A"
             android:textCursorDrawable="@null"
-            android:inputType="number" />
+            android:inputType="numberDecimal" />
 
         <EditText
             android:id="@+id/monthlyLimit"
@@ -132,7 +132,7 @@ Your personal information is shown below. If you want to edit them, click Edit t
             android:hint="Monthly limit"
             android:backgroundTint="#FF511A"
             android:textCursorDrawable="@null"
-            android:inputType="number" />
+            android:inputType="numberDecimal" />
 
         <EditText
             android:id="@+id/currency"

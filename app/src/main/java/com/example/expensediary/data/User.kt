@@ -15,7 +15,7 @@ data class User (
     @ColumnInfo(name = "last_name") var lastName: String,
     @ColumnInfo(name = "username") var username: String,
     @ColumnInfo(name = "password") var password: String,
-    @ColumnInfo(name = "daily_limit") var dailyLimit: Int,
-    @ColumnInfo(name = "monthly_limit") var monthlyLimit: Int,
+    @ColumnInfo(name = "daily_limit") var dailyLimit: Double,
+    @ColumnInfo(name = "monthly_limit") var monthlyLimit: Double,
     @ColumnInfo(name = "currency") var currency: String
     ) : Parcelable

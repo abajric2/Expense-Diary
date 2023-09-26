@@ -90,8 +90,8 @@ class ProfileActivity : AppCompatActivity() {
                         lastName = lastName.text.toString(),
                         username = username.text.toString(),
                         password = password.text.toString(),
-                        dailyLimit = dailyLimit.text.toString().toInt(),
-                        monthlyLimit = monthlyLimit.text.toString().toInt(),
+                        dailyLimit = dailyLimit.text.toString().toDouble(),
+                        monthlyLimit = monthlyLimit.text.toString().toDouble(),
                         currency = currency.text.toString()
                     )
                     UserRepository.update(updatedUser, context)

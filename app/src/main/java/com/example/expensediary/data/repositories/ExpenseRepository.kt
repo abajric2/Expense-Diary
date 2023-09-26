@@ -20,14 +20,14 @@ class ExpenseRepository {
             val expenses: List<Expense> = db!!.expenseDao().getUsersExpensesByMonth(user_id, expense_date)
             expenses
         }
-        suspend fun getUsersMonthlySum(user_id: Long, date: String, context: Context): Int = withContext(Dispatchers.IO) {
+        suspend fun getUsersMonthlySum(user_id: Long, date: String, context: Context): Double = withContext(Dispatchers.IO) {
             var db = AppDatabase.getInstance(context)
-            val sum: Int = db!!.expenseDao().getUsersMonthlySum(user_id, date)
+            val sum: Double = db!!.expenseDao().getUsersMonthlySum(user_id, date)
             sum
         }
-        suspend fun getUsersDailySum(user_id: Long, date: String, context: Context): Int = withContext(Dispatchers.IO) {
+        suspend fun getUsersDailySum(user_id: Long, date: String, context: Context): Double = withContext(Dispatchers.IO) {
             var db = AppDatabase.getInstance(context)
-            val sum: Int = db!!.expenseDao().getUsersDailySum(user_id, date)
+            val sum: Double = db!!.expenseDao().getUsersDailySum(user_id, date)
             sum
         }
         suspend fun expensesExist(user_id: Long, context: Context): Boolean = withContext(Dispatchers.IO) {
@@ -35,7 +35,7 @@ class ExpenseRepository {
             val expenses: List<Expense> = db!!.expenseDao().getByUsersId(user_id)
             expenses.isNotEmpty()
         }
-        suspend fun insert(user_id: Long, item: String, price: Int, expense_date: String, context: Context) = withContext(Dispatchers.IO) {
+        suspend fun insert(user_id: Long, item: String, price: Double, expense_date: String, context: Context) = withContext(Dispatchers.IO) {
             var db = AppDatabase.getInstance(context)
             db!!.expenseDao().insert(user_id, item, price, expense_date)
         }
