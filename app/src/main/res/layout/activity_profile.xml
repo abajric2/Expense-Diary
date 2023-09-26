@@ -186,6 +186,7 @@ Your personal information is shown below. If you want to edit them, click Edit t
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:layout_marginBottom="30dp"
             android:text="Delete"
             android:layout_gravity="center"/>
     </LinearLayout>
