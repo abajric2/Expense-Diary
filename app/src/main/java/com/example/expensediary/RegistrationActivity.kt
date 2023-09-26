@@ -34,43 +34,64 @@ class RegistrationActivity : AppCompatActivity() {
         dailyLimit = findViewById(R.id.dailyLimit)
         currency = findViewById(R.id.currency)
         findViewById<Button>(R.id.signUp).setOnClickListener {
-            var usersFirstName: String = firstName.text.toString()
-            var usersLastName: String = lastName.text.toString()
-            var usersUsername: String = username.text.toString()
-            var usersPassword: String = password.text.toString()
-            var usersDailyLimit: Double? = dailyLimit.text.toString().toDoubleOrNull()
-            if(usersDailyLimit == null) usersDailyLimit = 0.0
-            var usersMonthlyLimit: Double? = monthlyLimit.text.toString().toDoubleOrNull()
-            if(usersMonthlyLimit == null) usersMonthlyLimit = 0.0
-            var usersCurreny: String = currency.text.toString()
-            var user: User = User(firstName = usersFirstName, lastName = usersLastName, username = usersUsername,
-                password = usersPassword, dailyLimit = usersDailyLimit, monthlyLimit = usersMonthlyLimit, currency = usersCurreny)
-            val context: Context = this
-            val scope = CoroutineScope(Job() + Dispatchers.Main)
-            scope.launch {
-                if(UserRepository.usernameExists(usersUsername, context)) {
-                    val builder = AlertDialog.Builder(context)
-                    builder.setTitle("Sign up error!")
-                    builder.setMessage("Username that you entered already exists")
-                    builder.setPositiveButton("OK") { dialog, which ->
-                    }
-                    builder.show()
+            if(firstName.text.toString().trim().isEmpty() ||
+                lastName.text.toString().trim().isEmpty() ||
+                username.text.toString().trim().isEmpty() ||
+                password.text.toString().trim().isEmpty() ||
+                dailyLimit.text.toString().trim().isEmpty() ||
+                monthlyLimit.text.toString().trim().isEmpty() ||
+                currency.text.toString().trim().isEmpty()) {
+                val builder = AlertDialog.Builder(this)
+                builder.setTitle("Sign up error!")
+                builder.setMessage("You must fill in all fields provided!")
+                builder.setPositiveButton("OK") { dialog, which ->
+                    dialog.dismiss()
                 }
-                else {
-                    UserRepository.insert(user, context)
-                    val builder = AlertDialog.Builder(context)
-                    builder.setTitle("Account successfully created!")
-                    builder.setMessage("Please log in to continue")
-                    builder.setCancelable(false)
-                    builder.setPositiveButton("OK") { dialog, which ->
-                        val intent = Intent(context, LoginActivity::class.java).apply {
+                builder.show()
+            } else {
+                var usersFirstName: String = firstName.text.toString()
+                var usersLastName: String = lastName.text.toString()
+                var usersUsername: String = username.text.toString()
+                var usersPassword: String = password.text.toString()
+                var usersDailyLimit: Double? = dailyLimit.text.toString().toDoubleOrNull()
+                if (usersDailyLimit == null) usersDailyLimit = 0.0
+                var usersMonthlyLimit: Double? = monthlyLimit.text.toString().toDoubleOrNull()
+                if (usersMonthlyLimit == null) usersMonthlyLimit = 0.0
+                var usersCurreny: String = currency.text.toString()
+                var user: User = User(
+                    firstName = usersFirstName,
+                    lastName = usersLastName,
+                    username = usersUsername,
+                    password = usersPassword,
+                    dailyLimit = usersDailyLimit,
+                    monthlyLimit = usersMonthlyLimit,
+                    currency = usersCurreny
+                )
+                val context: Context = this
+                val scope = CoroutineScope(Job() + Dispatchers.Main)
+                scope.launch {
+                    if (UserRepository.usernameExists(usersUsername, context)) {
+                        val builder = AlertDialog.Builder(context)
+                        builder.setTitle("Sign up error!")
+                        builder.setMessage("Username that you entered already exists")
+                        builder.setPositiveButton("OK") { dialog, which ->
                         }
-                        startActivity(intent)
+                        builder.show()
+                    } else {
+                        UserRepository.insert(user, context)
+                        val builder = AlertDialog.Builder(context)
+                        builder.setTitle("Account successfully created!")
+                        builder.setMessage("Please log in to continue")
+                        builder.setCancelable(false)
+                        builder.setPositiveButton("OK") { dialog, which ->
+                            val intent = Intent(context, LoginActivity::class.java).apply {
+                            }
+                            startActivity(intent)
+                        }
+                        builder.show()
                     }
-                    builder.show()
                 }
             }
-
             return@setOnClickListener
         }
         findViewById<TextView>(R.id.logIn).setOnClickListener {
