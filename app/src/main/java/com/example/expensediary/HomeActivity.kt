@@ -25,6 +25,7 @@ import org.w3c.dom.Text
 import java.sql.Date
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.math.roundToInt
 
 class HomeActivity : AppCompatActivity(), ExpenseListAdapter.ButtonClickListener {
     private lateinit var selectedDate: TextView
@@ -209,13 +210,16 @@ class HomeActivity : AppCompatActivity(), ExpenseListAdapter.ButtonClickListener
                     selectedDate.text.toString(),
                     context
                 )
-                info += "\n\nMONTHLY EXPENSE: " + sum + " " + user!!.currency
+                val roundedSum = (sum * 100.0).roundToInt() / 100.0
+                info += "\n\nMONTHLY EXPENSE: " + roundedSum + " " + user!!.currency
                 if (sum > user!!.monthlyLimit) {
                     monthlyLimitExceeded.visibility = View.VISIBLE
-                    info += "\n\nAMOUNT OF OVERFLOW: " + (sum - user!!.monthlyLimit) + " " + user!!.currency
+                    val rounded = ((sum - user!!.monthlyLimit) * 100.0).roundToInt() / 100.0
+                    info += "\n\nAMOUNT OF OVERFLOW: " + rounded + " " + user!!.currency
                 } else {
                     monthlyLimitExceeded.visibility = View.GONE
-                    info += "\n\nREMAINING BEFORE OVERDRAFT: " + (user!!.monthlyLimit - sum) + " " + user!!.currency
+                    val rounded = ((user!!.monthlyLimit - sum) * 100.0).roundToInt() / 100.0
+                    info += "\n\nREMAINING BEFORE OVERDRAFT: " + rounded + " " + user!!.currency
                 }
             } else {
                 monthlyLimitExceeded.visibility = View.GONE
@@ -236,13 +240,16 @@ class HomeActivity : AppCompatActivity(), ExpenseListAdapter.ButtonClickListener
                     selectedDate.text.toString(),
                     context
                 )
-                info += "\n\nDAILY EXPENSE: " + sum + " " + user!!.currency
+                val roundedSum = (sum * 100.0).roundToInt() / 100.0
+                info += "\n\nDAILY EXPENSE: " + roundedSum + " " + user!!.currency
                 if (sum > user!!.dailyLimit) {
                     dailyLimitExceeded.visibility = View.VISIBLE
-                    info += "\n\nAMOUNT OF OVERFLOW:  " + (sum - user!!.dailyLimit) + " " + user!!.currency
+                    val rounded = ((sum - user!!.dailyLimit) * 100.0).roundToInt() / 100.0
+                    info += "\n\nAMOUNT OF OVERFLOW:  " + rounded + " " + user!!.currency
                 } else {
                     dailyLimitExceeded.visibility = View.GONE
-                    info += "\n\nREMAINING BEFORE OVERDRAFT: " + (user!!.dailyLimit - sum) + " " + user!!.currency
+                    val rounded = ((user!!.dailyLimit - sum) * 100.0).roundToInt() / 100.0
+                    info += "\n\nREMAINING BEFORE OVERDRAFT: " + rounded + " " + user!!.currency
                 }
             } else {
                 dailyLimitExceeded.visibility = View.GONE
