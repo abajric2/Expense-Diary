@@ -84,12 +84,12 @@ class HomeActivity : AppCompatActivity(), ExpenseListAdapter.ButtonClickListener
         }
         val calendar = Calendar.getInstance()
         val picker = DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
-            calendar.set(Calendar.YEAR, year)
-            calendar.set(Calendar.MONTH, month)
-            calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-            updateSelectedDate(calendar)
             val scope = CoroutineScope(Job() + Dispatchers.Main)
             scope.launch {
+                calendar.set(Calendar.YEAR, year)
+                calendar.set(Calendar.MONTH, month)
+                calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+                updateSelectedDate(calendar)
                 if(showDailyList.visibility == View.VISIBLE) {
                     expenses = ExpenseRepository.getUsersExpensesByMonth(
                         user!!.id,
@@ -138,11 +138,19 @@ class HomeActivity : AppCompatActivity(), ExpenseListAdapter.ButtonClickListener
                         selectedDate.text.toString(),
                         context
                     )
-                    expenses = ExpenseRepository.getUsersExpensesByDate(
-                        user!!.id,
-                        selectedDate.text.toString(),
-                        context
-                    )
+                    if(showDailyList.visibility == View.VISIBLE) {
+                        expenses = ExpenseRepository.getUsersExpensesByMonth(
+                            user!!.id,
+                            selectedDate.text.toString(),
+                            context
+                        )
+                    } else {
+                        expenses = ExpenseRepository.getUsersExpensesByDate(
+                            user!!.id,
+                            selectedDate.text.toString(),
+                            context
+                        )
+                    }
                     expenseListAdapter.updateExpenses(expenses)
                     setDailyLimitInfo()
                     setMonthlyLimitInfo()
@@ -210,6 +218,7 @@ class HomeActivity : AppCompatActivity(), ExpenseListAdapter.ButtonClickListener
                     info += "\n\nREMAINING BEFORE OVERDRAFT: " + (user!!.monthlyLimit - sum) + " " + user!!.currency
                 }
             } else {
+                monthlyLimitExceeded.visibility = View.GONE
                 info += "\n\nMONTHLY EXPENSE: " + 0 + " " + user!!.currency
                 info += "\n\nREMAINING BEFORE OVERDRAFT: " + (user!!.monthlyLimit) + " " + user!!.currency
             }
@@ -236,6 +245,7 @@ class HomeActivity : AppCompatActivity(), ExpenseListAdapter.ButtonClickListener
                     info += "\n\nREMAINING BEFORE OVERDRAFT: " + (user!!.dailyLimit - sum) + " " + user!!.currency
                 }
             } else {
+                dailyLimitExceeded.visibility = View.GONE
                 info += "\n\nDAILY EXPENSE: " + 0 + " " + user!!.currency
                 info += "\n\nREMAINING BEFORE OVERDRAFT: " + (user!!.dailyLimit) + " " + user!!.currency
             }
@@ -252,7 +262,19 @@ class HomeActivity : AppCompatActivity(), ExpenseListAdapter.ButtonClickListener
         val scope = CoroutineScope(Job() + Dispatchers.Main)
         scope.launch {
             ExpenseRepository.delete(expense_id, context)
-            expenses = ExpenseRepository.getUsersExpensesByDate(user!!.id, selectedDate.text.toString(), context)
+            if(showDailyList.visibility == View.VISIBLE) {
+                expenses = ExpenseRepository.getUsersExpensesByMonth(
+                    user!!.id,
+                    selectedDate.text.toString(),
+                    context
+                )
+            } else {
+                expenses = ExpenseRepository.getUsersExpensesByDate(
+                    user!!.id,
+                    selectedDate.text.toString(),
+                    context
+                )
+            }
             expenseListAdapter.updateExpenses(expenses)
             setDailyLimitInfo()
             setMonthlyLimitInfo()
