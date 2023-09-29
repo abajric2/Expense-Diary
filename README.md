@@ -1,5 +1,5 @@
 # ExpenSave
-***ExpenSave*** is an intuitive mobile app designed to help you track your expenses seamlessly. 
+***ExpenSave*** is an intuitive android mobile app designed to help you track your expenses seamlessly. 
 
 Upon registration, you'll set both daily and monthly spending limits. 
 
@@ -7,7 +7,7 @@ At any given time, you can instantly see your designated limit, how much you've 
 
 If you happen to surpass your set limit, an emphasized notification alerts you, encouraging prudent financial management. 
 
-Curious about where your money went in the past? Detailed breakdowns of your expenditures on a daily or monthly basis are readily available. 
+Curious about where your money went in the past? Details of your expenditures on a daily or monthly basis are readily available. 
 
 Plus, you have the flexibility to update your initial spending limit and other personal details whenever you wish.
 ### Languages & Tools
