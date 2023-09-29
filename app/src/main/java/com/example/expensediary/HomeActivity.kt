@@ -155,6 +155,8 @@ class HomeActivity : AppCompatActivity(), ExpenseListAdapter.ButtonClickListener
                     expenseListAdapter.updateExpenses(expenses)
                     setDailyLimitInfo()
                     setMonthlyLimitInfo()
+                    item.setText("")
+                    price.setText("")
                 }
             }
         }
