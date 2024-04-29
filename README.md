@@ -17,6 +17,9 @@ Additionaly, you have the flexibility to update your initial spending limit and 
 - Email: [bajricaminaa@gmail.com](mailto:bajricaminaa@gmail.com)
 - LinkedIn: [Amina Bajric](https://www.linkedin.com/in/amina-bajric-b75619291/)
 - GitHub: [abajric2](https://github.com/abajric2/)
+- Email: [tvelic1@etf.unsa.ba](mailto:tvelic1@etf.unsa.ba)
+- LinkedIn: [Tarik Velic](https://www.linkedin.com/in/tarik-veli%C4%87-99b743272/)
+- GitHub: [tvelic1](https://github.com/tvelic1/)
 
 
 
